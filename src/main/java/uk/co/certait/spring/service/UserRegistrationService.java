@@ -1,5 +1,7 @@
 package uk.co.certait.spring.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,7 @@ public class UserRegistrationService {
 
 	@Transactional
 	public void registerUser(User user) {
-
+		user.setRegistrationDate(new Date());
 		user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
 		user.addRole(new Role("ROLE_USER"));
 		

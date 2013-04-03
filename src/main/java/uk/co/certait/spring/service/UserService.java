@@ -32,4 +32,9 @@ public class UserService {
 
 		//send email
 	}
+	
+	@Transactional
+	public User updateUser(User user){
+		return repository.save(user);
+	}
 }
