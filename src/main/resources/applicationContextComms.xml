@@ -6,7 +6,7 @@
 
 	<context:component-scan base-package="uk.co.certait.spring.service" />
 
-<!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="${smtp.host}" />
 		<property name="username" value="${smtp.user}" />
 		<property name="password" value="${smtp.password}" />
@@ -18,10 +18,14 @@
 		</property>
 	</bean>
 
-	<bean id="emailService" class="uk.co.braidsunited.service.EmailService">
-		<property name="javaMailSenderImpl" ref="mailSender" />
-		<property name="velocityEngine" ref="velocityEngine" />
-		<property name="fromAddress" value="${mail.from.address}" />
-	</bean> -->
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+			</value>
+		</property>
+	</bean>
 
 </beans>
