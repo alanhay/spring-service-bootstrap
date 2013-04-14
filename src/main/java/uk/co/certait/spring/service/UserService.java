@@ -21,6 +21,11 @@ public class UserService {
 	private UserRepository repository;
 
 	@Transactional(readOnly = true)
+	public User findById(Long id) {
+		return repository.findOne(id);
+	}
+	
+	@Transactional(readOnly = true)
 	public User findByEmailAddress(String emailAddress) {
 		return repository.findOne(UserSpecifications.userHasEmailAddress(emailAddress));
 	}
