@@ -77,10 +77,4 @@ public class ResetPasswordService {
 
 		return VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/templates/email/resetPassword.vm", model);
 	}
-
-	public class UserNotFoundException extends Exception {
-		public UserNotFoundException(String message) {
-			super(message);
-		}
-	}
 }
