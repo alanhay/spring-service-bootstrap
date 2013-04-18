@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import uk.co.certait.spring.data.domain.specification.UserSpecifications;
+import uk.co.certait.spring.data.domain.QUser;
 import uk.co.certait.spring.data.repository.UserRepository;
 
 @Service(value = "authenticationService")
@@ -19,6 +19,6 @@ public class AuthenticationService implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		return userRepository.findOne(UserSpecifications.userHasEmailAddress(userName).and(UserSpecifications.userIsActive()));
+		return userRepository.findOne(QUser.user.emailAddress.eq(userName).and(QUser.user.deleted.eq(false)));
 	}
 }

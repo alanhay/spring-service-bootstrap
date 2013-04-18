@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import uk.co.certait.spring.data.domain.QUser;
 import uk.co.certait.spring.data.domain.User;
-import uk.co.certait.spring.data.domain.specification.UserSpecifications;
 import uk.co.certait.spring.data.repository.UserRepository;
 import uk.co.certait.spring.service.email.Email;
 import uk.co.certait.spring.service.email.EmailContentType;
@@ -42,13 +42,13 @@ public class ResetPasswordService {
 	@Autowired
 	private VelocityEngine velocityEngine;
 
-	@Transactional
+	@Transactional(rollbackFor = UserNotFoundException.class)
 	public void resetUserPassword(String emailAddress) throws UserNotFoundException {
 
-		User user = userRepository.findOne(UserSpecifications.userHasEmailAddress(emailAddress));
-
-		if (user == null) {
-			throw new UserNotFoundException("No User found with email address " + emailAddress);
+		User user = userRepository.findOne(QUser.user.emailAddress.eq(emailAddress));
+		
+		if(user == null){
+			throw new UserNotFoundException("User not Found");
 		}
 
 		String password = RandomStringUtils.randomAlphabetic(10);
