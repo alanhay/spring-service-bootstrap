@@ -8,9 +8,8 @@
 		<groupId>uk.co.certait</groupId>
 		<artifactId>spring-combined-bootstrap</artifactId>
 		<version>1.0</version>
-		<relativePath/>
 	</parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
