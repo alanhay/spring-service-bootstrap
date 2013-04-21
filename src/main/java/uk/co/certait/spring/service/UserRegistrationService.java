@@ -52,7 +52,8 @@ public class UserRegistrationService {
 		user.setRegistrationDate(new Date());
 		user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
 		user.addRole(new Role("ROLE_USER"));
-
+		user.addRole(new Role("ROLE_ADMIN"));
+		
 		userRepository.save(user);
 	}
 

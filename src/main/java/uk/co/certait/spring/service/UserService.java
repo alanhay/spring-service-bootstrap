@@ -63,11 +63,6 @@ public class UserService {
 		return repository.findUniqueUserLocations(query + "%", new PageRequest(0, limit));
 	}
 
-	@Transactional(readOnly = true)
-	public boolean isEmailAddressUnique(String emailAddress, Long userId) {
-		return repository.checkEmailAddressUnique(emailAddress, userId) == 0;
-	}
-
 	@Transactional
 	public User updateUser(User user) {
 		return repository.save(user);
