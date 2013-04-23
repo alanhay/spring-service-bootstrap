@@ -17,48 +17,41 @@ import uk.co.certait.spring.data.repository.UserRepository;
 import com.mysema.query.types.Predicate;
 
 @Service
+@Transactional(readOnly = true)
 public class UserService {
 
 	@Autowired
 	private UserRepository repository;
 
-	@Transactional(readOnly = true)
 	@PreAuthorize("#id == authentication.principal.id or hasRole('ROLE_ADMIN')")
 	public User findById(Long id) {
 		return repository.findOne(id);
 	}
 
-	@Transactional(readOnly = true)
-	public User findByEmailAddress(String emailAddress){
+	public User findByEmailAddress(String emailAddress) {
 		return repository.findOne(QUser.user.emailAddress.eq(emailAddress));
 	}
 
-	@Transactional(readOnly = true)
-	public List<User> getAllActiveUsers() {
+	public List<User> findAllActiveUsers() {
 		return repository.findAll(QUser.user.deleted.eq(false));
 	}
 
-	@Transactional(readOnly = true)
-	public Page<User> getAllActiveUsers(Pageable pageable) {
+	public Page<User> findAllActiveUsers(Pageable pageable) {
 		return repository.findAll(QUser.user.deleted.eq(false), pageable);
 	}
 
-	@Transactional(readOnly = true)
-	public List<User> getUsersByCriteria(Predicate predicate) {
+	public List<User> findUsersByCriteria(Predicate predicate) {
 		return repository.findAll(predicate);
 	}
 
-	@Transactional(readOnly = true)
 	public Page<User> getUsersByCriteria(Predicate predicate, Pageable pageable) {
 		return repository.findAll(predicate, pageable);
 	}
 
-	@Transactional(readOnly = true)
 	public List<String> getUniqueUserSurnames(String query, int limit) {
 		return repository.findUniqueUserSurnames(query + "%", new PageRequest(0, limit));
 	}
 
-	@Transactional(readOnly = true)
 	public List<String> getUniqueUserLocations(String query, int limit) {
 		return repository.findUniqueUserLocations(query + "%", new PageRequest(0, limit));
 	}

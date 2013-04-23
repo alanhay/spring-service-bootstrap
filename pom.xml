@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>uk.co.certait</groupId>
 		<artifactId>spring-combined-bootstrap</artifactId>
-		<version>1.0</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<dependencies>
